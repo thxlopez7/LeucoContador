@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>LeucoCount Pro | Laboratorio Senior</title>
+    <title>LeucoCount Pro | Precisión UX</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
@@ -118,12 +118,15 @@
             position: relative;
             padding: 0;
             overflow: visible;
-            /* Para que el badge pueda sobresalir */
+            /* CRITICAL: Allow badge to sit on top without clipping */
         }
 
+        /* Selection/Active State - NO CLIPPING */
         .btn-cell:active {
             transform: scale(0.96);
             border-color: var(--accent);
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.2);
+            z-index: 50;
         }
 
         /* Morphological Window (1:1 Aspect Ratio) */
@@ -134,6 +137,7 @@
             border-radius: 22px 22px 0 0;
             overflow: hidden;
             background: #000;
+            z-index: 1;
         }
 
         .cell-img {
@@ -149,7 +153,7 @@
             opacity: 1;
         }
 
-        /* Non-overlapping Label - SOLID STRIP AT BASE */
+        /* Non-overlapping Label */
         .cell-tag {
             background: var(--label-bg);
             color: var(--text);
@@ -162,29 +166,36 @@
             text-align: center;
             letter-spacing: 0.05em;
             border-top: 1px solid var(--border);
+            z-index: 2;
         }
 
-        /* Floating Badge - HIGH VISIBILITY */
+        /* High-Priority Individual Badge */
         .badge {
             position: absolute;
-            top: -10px;
-            right: -10px;
-            min-width: 32px;
-            height: 32px;
+            top: 8px;
+            /* Cushion from top */
+            right: 8px;
+            /* Cushion from right */
+            min-width: 36px;
+            height: 36px;
             background: var(--accent);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 0.9rem;
-            font-weight: 900;
+            font-size: 1rem;
+            /* Reinforced size */
+            font-weight: 800;
+            /* Bold weight */
             border: 3px solid var(--bg);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
             z-index: 100;
+            /* Maximum priority */
             opacity: 0;
             transform: scale(0);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
         }
 
         .badge.active {
@@ -223,7 +234,7 @@
             border: 2px solid var(--border);
         }
 
-        /* Laboratory Results Modal */
+        /* Results Modal */
         #modal {
             display: none;
             position: fixed;
@@ -305,7 +316,7 @@
     <header class="header">
         <div class="dashboard">
             <div class="counter-box">
-                <h2>Conteo Relativo</h2>
+                <h2>Total de Células</h2>
                 <div class="counter-value"><span id="live-total">0</span>/100</div>
             </div>
             <div class="wbc-group">
@@ -316,55 +327,52 @@
     </header>
 
     <main class="grid">
-        <!-- LESS FREQUENT (Top) -->
         <button class="btn-cell" onclick="tap('basofilo')">
+            <div class="badge" id="b-basofilo">0</div>
             <div class="img-box">
                 <img src="images/basofilo.jpg" class="cell-img">
-                <div class="badge" id="b-basofilo">0</div>
             </div>
             <div class="cell-tag">Basófilo</div>
         </button>
         <button class="btn-cell" onclick="tap('eosinofilo')">
+            <div class="badge" id="b-eosinofilo">0</div>
             <div class="img-box">
                 <img src="images/eosinofilo.jpg" class="cell-img">
-                <div class="badge" id="b-eosinofilo">0</div>
             </div>
             <div class="cell-tag">Eosinófilo</div>
         </button>
         <button class="btn-cell" onclick="tap('monocito')">
+            <div class="badge" id="b-monocito">0</div>
             <div class="img-box">
                 <img src="images/monocito.jpg" class="cell-img">
-                <div class="badge" id="b-monocito">0</div>
             </div>
             <div class="cell-tag">Monocito</div>
         </button>
         <button class="btn-cell" onclick="tap('linfocito_reactivo')">
+            <div class="badge" id="b-linfocito_reactivo">0</div>
             <div class="img-box">
                 <img src="images/linfocito_reactivo.jpg" class="cell-img">
-                <div class="badge" id="b-linfocito_reactivo">0</div>
             </div>
             <div class="cell-tag">Linfo. Reactivo</div>
         </button>
-
-        <!-- POWER ZONE (Bottom - Most Common) -->
         <button class="btn-cell" onclick="tap('linfocito')">
+            <div class="badge" id="b-linfocito">0</div>
             <div class="img-box">
                 <img src="images/linfocito.jpg" class="cell-img">
-                <div class="badge" id="b-linfocito">0</div>
             </div>
             <div class="cell-tag">Linfocito</div>
         </button>
         <button class="btn-cell" onclick="tap('neutrofilo_segmentado')">
+            <div class="badge" id="b-neutrofilo_segmentado">0</div>
             <div class="img-box">
                 <img src="images/neutrofilo_segmentado.jpg" class="cell-img">
-                <div class="badge" id="b-neutrofilo_segmentado">0</div>
             </div>
             <div class="cell-tag">Segmentado</div>
         </button>
         <button class="btn-cell" style="grid-column: span 2;" onclick="tap('neutrofilo_banda')">
-            <div class="img-box" style="aspect-ratio: 2/1;">
+            <div class="badge" id="b-neutrofilo_banda">0</div>
+            <div class="img-box" style="aspect-ratio: 2/0.8;">
                 <img src="images/neutrofilo_banda.jpg" class="cell-img">
-                <div class="badge" id="b-neutrofilo_banda">0</div>
             </div>
             <div class="cell-tag">Neutrófilo en Banda</div>
         </button>
