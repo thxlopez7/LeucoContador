@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>LeucoCount Pro | Bioquímica Clínica</title>
+    <title>LeucoCount Pro | Edición Modular</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
@@ -13,14 +13,12 @@
             --bg: #0f172a;
             --card: #1e293b;
             --accent: #8b5cf6;
-            --accent-glow: rgba(139, 92, 246, 0.3);
             --text: #f8fafc;
             --text-muted: #94a3b8;
             --success: #10b981;
             --danger: #ef4444;
             --border: #334155;
-            --header-h: 120px;
-            --footer-h: 80px;
+            --label-bg: rgba(15, 23, 42, 0.95);
         }
 
         * {
@@ -28,6 +26,8 @@
             margin: 0;
             padding: 0;
             -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            user-select: none;
             font-family: 'Inter', sans-serif;
         }
 
@@ -35,20 +35,16 @@
             background-color: var(--bg);
             color: var(--text);
             height: 100dvh;
-            /* Evita que la UI de Opera tape botones */
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            user-select: none;
             touch-action: manipulation;
-            /* Evita zoom por doble tap */
         }
 
         /* Header & Dashboard */
         .header {
-            padding: 1.25rem 1rem;
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(10px);
+            padding: 1rem;
+            background: var(--bg);
             border-bottom: 1px solid var(--border);
             z-index: 100;
         }
@@ -57,7 +53,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1rem;
+            margin-bottom: 0.75rem;
         }
 
         .counter-box {
@@ -65,15 +61,14 @@
         }
 
         .counter-label {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 600;
-            text-transform: uppercase;
             color: var(--text-muted);
-            letter-spacing: 0.05em;
+            text-transform: uppercase;
         }
 
         .counter-value {
-            font-size: 2rem;
+            font-size: 1.75rem;
             font-weight: 800;
         }
 
@@ -81,51 +76,49 @@
             color: var(--accent);
         }
 
-        .wbc-input-group {
+        .wbc-group {
             text-align: right;
-            max-width: 140px;
         }
 
-        .wbc-input-group label {
+        .wbc-group label {
             display: block;
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             color: var(--text-muted);
             margin-bottom: 4px;
         }
 
         .wbc-input {
-            width: 100%;
+            width: 120px;
             background: var(--card);
             border: 1px solid var(--border);
             color: var(--text);
-            padding: 8px;
-            border-radius: 8px;
-            font-size: 0.9rem;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 1rem;
             font-weight: 700;
             text-align: center;
         }
 
         .progress-container {
-            height: 6px;
+            height: 4px;
             background: var(--card);
             border-radius: 99px;
             overflow: hidden;
         }
 
-        #progress-fill {
+        #p-fill {
             height: 100%;
             width: 0%;
-            background: linear-gradient(90deg, var(--accent), #d8b4fe);
-            box-shadow: 0 0 10px var(--accent-glow);
-            transition: width 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            background: var(--accent);
+            transition: width 0.3s ease;
         }
 
-        /* Ergonomic Grid (Power Zone) */
+        /* Modular Grid */
         .grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 12px;
-            padding: 1rem;
+            padding: 12px;
             flex-grow: 1;
             overflow-y: auto;
         }
@@ -134,56 +127,70 @@
             position: relative;
             background: var(--card);
             border: 1px solid var(--border);
-            border-radius: 20px;
+            border-radius: 16px;
+            height: 120px;
             overflow: hidden;
-            aspect-ratio: 1/1;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: flex-end;
-            padding-bottom: 15px;
             cursor: pointer;
-            transition: transform 0.1s, background 0.2s;
+            transition: transform 0.1s;
         }
 
         .cell-btn:active {
-            transform: scale(0.95);
-            background: var(--border);
+            transform: scale(0.96);
+            border-color: var(--accent);
         }
 
-        .cell-btn img {
+        .cell-img {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0.6;
-            transition: opacity 0.2s;
-        }
-
-        .cell-btn.active img {
-            opacity: 0.9;
+            opacity: 0.7;
         }
 
         .cell-label {
-            z-index: 10;
-            background: rgba(15, 23, 42, 0.9);
-            padding: 4px 12px;
-            border-radius: 8px;
-            font-size: 0.75rem;
-            font-weight: 600;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--label-bg);
             color: white;
+            padding: 8px 4px;
+            text-align: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* Power Zone (Thumb Reach) */
-        .power-item {
-            aspect-ratio: auto;
-            min-height: 90px;
+        .badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            min-width: 24px;
+            height: 24px;
+            background: var(--accent);
+            border-radius: 99px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 6px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            z-index: 20;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .full-width {
-            grid-column: span 2;
+        .badge.visible {
+            opacity: 1;
+            transform: scale(1);
         }
 
         /* Controls */
@@ -195,113 +202,80 @@
             border-top: 1px solid var(--border);
         }
 
-        .control-btn {
+        .ctrl-btn {
             flex: 1;
-            padding: 1rem;
+            padding: 15px;
             border-radius: 12px;
             border: none;
             font-weight: 700;
-            background: var(--card);
-            color: var(--text-muted);
+            font-size: 0.85rem;
             cursor: pointer;
         }
 
         .undo {
-            flex: 2;
+            background: #334155;
             color: var(--danger);
-            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .reset {
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid var(--border);
         }
 
         /* Results Modal */
-        #results-modal {
+        #modal {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(15px);
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
             z-index: 1000;
             align-items: center;
             justify-content: center;
-            padding: 1.5rem;
+            padding: 1rem;
         }
 
         .modal-card {
             background: var(--card);
             width: 100%;
-            max-width: 450px;
-            border-radius: 28px;
-            padding: 2rem 1.5rem;
+            max-width: 400px;
+            border-radius: 20px;
+            padding: 1.5rem;
             border: 1px solid var(--border);
-        }
-
-        .modal-title {
-            font-size: 1.25rem;
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            color: var(--accent);
-            text-align: center;
         }
 
         .results-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 1.5rem;
+            margin: 1.5rem 0;
         }
 
         .results-table th {
             text-align: left;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: var(--text-muted);
-            padding-bottom: 8px;
-            text-transform: uppercase;
+            padding-bottom: 10px;
         }
 
         .results-table td {
-            padding: 12px 0;
+            padding: 10px 0;
             border-bottom: 1px solid var(--border);
             font-size: 0.85rem;
         }
 
-        .results-table tr:last-child td {
-            border: 0;
-        }
-
-        .rel-val {
-            color: var(--success);
-            font-weight: 700;
-        }
-
-        .abs-val {
-            font-weight: 800;
-            font-variant-numeric: tabular-nums;
-        }
-
-        .action-group {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .action-btn {
+        .copy-btn {
             width: 100%;
             padding: 1rem;
-            border-radius: 14px;
-            border: none;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        .copy-btn {
+            border-radius: 12px;
             background: var(--accent);
             color: white;
-        }
-
-        .close-btn {
-            background: transparent;
-            color: var(--text-muted);
+            border: none;
+            font-weight: 800;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -311,188 +285,154 @@
     <header class="header">
         <div class="dashboard">
             <div class="counter-box">
-                <p class="counter-label">Relativa Contada</p>
-                <h1 class="counter-value"><span id="total-count">0</span>/100</h1>
+                <span class="counter-label">Relativa</span>
+                <div class="counter-value"><span id="t-count">0</span>/100</div>
             </div>
-            <div class="wbc-input-group">
-                <label for="wbc-total">Total Blancos/mm³</label>
-                <input type="number" id="wbc-total" class="wbc-input" placeholder="Ej: 8000" value="0">
+            <div class="wbc-group">
+                <label>Total Leucocitos</label>
+                <input type="tel" id="wbc-total" class="wbc-input" value="0">
             </div>
         </div>
         <div class="progress-container">
-            <div id="progress-fill"></div>
+            <div id="p-fill"></div>
         </div>
     </header>
 
     <main class="grid">
-        <!-- ZONA SUPERIOR: Células menos frecuentes -->
-        <button class="cell-btn" onclick="cellTap('basofilo')">
-            <img src="images/basofilo.jpg">
-            <span class="cell-label">Basófilos</span>
+        <button class="cell-btn" onclick="tap('basofilo')">
+            <img src="images/basofilo.jpg" class="cell-img">
+            <div class="badge" id="badge-basofilo">0</div>
+            <div class="cell-label">Basofilo</div>
         </button>
-        <button class="cell-btn" onclick="cellTap('eosinofilo')">
-            <img src="images/eosinofilo.jpg">
-            <span class="cell-label">Eosinófilos</span>
+        <button class="cell-btn" onclick="tap('eosinofilo')">
+            <img src="images/eosinofilo.jpg" class="cell-img">
+            <div class="badge" id="badge-eosinofilo">0</div>
+            <div class="cell-label">Eosinofilo</div>
         </button>
-        <button class="cell-btn" onclick="cellTap('monocito')">
-            <img src="images/monocito.jpg">
-            <span class="cell-label">Monocitos</span>
+        <button class="cell-btn" onclick="tap('monocito')">
+            <img src="images/monocito.jpg" class="cell-img">
+            <div class="badge" id="badge-monocito">0</div>
+            <div class="cell-label">Monocito</div>
         </button>
-        <button class="cell-btn" onclick="cellTap('linfocito_reactivo')">
-            <img src="images/linfocito_reactivo.jpg">
-            <span class="cell-label">Linfo. Reactivo</span>
+        <button class="cell-btn" onclick="tap('linfocito_reactivo')">
+            <img src="images/linfocito_reactivo.jpg" class="cell-img">
+            <div class="badge" id="badge-linfocito_reactivo">0</div>
+            <div class="cell-label">Linfo. Reactivo</div>
         </button>
-
-        <!-- POWER ZONE: Células de mayor frecuencia (Acceso rápido pulgar) -->
-        <button class="cell-btn power-item" onclick="cellTap('linfocito')">
-            <img src="images/linfocito.jpg">
-            <span class="cell-label">Linfocitos</span>
+        <button class="cell-btn" onclick="tap('linfocito')">
+            <img src="images/linfocito.jpg" class="cell-img">
+            <div class="badge" id="badge-linfocito">0</div>
+            <div class="cell-label">Linfocito</div>
         </button>
-        <button class="cell-btn power-item" onclick="cellTap('neutrofilo_segmentado')">
-            <img src="images/neutrofilo_segmentado.jpg">
-            <span class="cell-label">Segmentados</span>
+        <button class="cell-btn" onclick="tap('neutrofilo_segmentado')">
+            <img src="images/neutrofilo_segmentado.jpg" class="cell-img">
+            <div class="badge" id="badge-neutrofilo_segmentado">0</div>
+            <div class="cell-label">N. Segmentado</div>
         </button>
-        <button class="cell-btn power-item full-width" onclick="cellTap('neutrofilo_banda')">
-            <img src="images/neutrofilo_banda.jpg">
-            <span class="cell-label">Neutrófilos en Banda</span>
+        <button class="cell-btn" style="grid-column: span 2;" onclick="tap('neutrofilo_banda')">
+            <img src="images/neutrofilo_banda.jpg" class="cell-img">
+            <div class="badge" id="badge-neutrofilo_banda">0</div>
+            <div class="cell-label">Neutrofilo en Banda</div>
         </button>
     </main>
 
     <footer class="controls">
-        <button class="control-btn undo" onclick="undoTap()">⟲ DESHACER</button>
-        <button class="control-btn" onclick="resetTap()">RESET</button>
+        <button class="ctrl-btn undo" onclick="undo()">⟲ DESHACER</button>
+        <button class="ctrl-btn reset" onclick="reset()">REINICIAR</button>
     </footer>
 
-    <!-- Result Modal -->
-    <div id="results-modal">
+    <div id="modal">
         <div class="modal-card">
-            <h2 class="modal-title">Fórmula Leucocitaria</h2>
+            <h3 style="text-align:center; color: var(--accent);">Resultados Finales</h3>
             <table class="results-table">
                 <thead>
                     <tr>
                         <th>Célula</th>
-                        <th style="text-align: right">%</th>
-                        <th style="text-align: right">mm³</th>
+                        <th style="text-align:right">%</th>
+                        <th style="text-align:right">mm³</th>
                     </tr>
                 </thead>
-                <tbody id="results-body"></tbody>
+                <tbody id="r-body"></tbody>
             </table>
-            <div class="action-group">
-                <button class="action-btn copy-btn" onclick="copyResults()">COPIAR REPORTE</button>
-                <button class="action-btn close-btn" onclick="toggleModal(false)">Volver a Editar</button>
-            </div>
+            <button class="copy-btn" onclick="copy()">COPIAR REPORTE</button>
+            <div style="text-align:center; margin-top:15px; font-size:0.8rem; color:var(--text-muted); text-decoration:underline;"
+                onclick="closeM()">Volver</div>
         </div>
     </div>
 
     <script>
         const state = {
-            counts: {
-                basofilo: 0, eosinofilo: 0, monocito: 0,
-                linfocito_reactivo: 0, linfocito: 0,
-                neutrofilo_segmentado: 0, neutrofilo_banda: 0
-            },
+            counts: { basofilo: 0, eosinofilo: 0, monocito: 0, linfocito_reactivo: 0, linfocito: 0, neutrofilo_segmentado: 0, neutrofilo_banda: 0 },
             history: [],
-            total: 0,
-            isLocked: false
+            total: 0
         };
 
-        const cellLabels = {
-            basofilo: "Basófilos",
-            eosinofilo: "Eosinófilos",
-            monocito: "Monocitos",
-            linfocito_reactivo: "Linfo. Reactivos",
-            linfocito: "Linfocitos",
-            neutrofilo_segmentado: "N. Segmentados",
-            neutrofilo_banda: "N. en Banda"
+        const labs = {
+            basofilo: "Basofilo", eosinofilo: "Eosinofilo", monocito: "Monocito",
+            linfocito_reactivo: "Linfo Reactivo", linfocito: "Linfocito",
+            neutrofilo_segmentado: "N. Segmentado", neutrofilo_banda: "N. Banda"
         };
 
-        function cellTap(type) {
+        function tap(type) {
             if (state.total >= 100) return;
-
             state.counts[type]++;
             state.total++;
             state.history.push(type);
-
-            if (navigator.vibrate) {
-                navigator.vibrate(state.total === 100 ? 200 : 40);
-            }
-
+            if (navigator.vibrate) navigator.vibrate(state.total === 100 ? 250 : 40);
             render();
-
-            if (state.total === 100) {
-                setTimeout(() => toggleModal(true), 300);
-            }
+            if (state.total === 100) setTimeout(showResults, 400);
         }
 
-        function undoTap() {
+        function undo() {
             if (state.history.length === 0) return;
-            const last = state.history.pop();
-            state.counts[last]--;
+            state.counts[state.history.pop()]--;
             state.total--;
             render();
         }
 
-        function resetTap() {
-            if (confirm("¿Reiniciar conteo?")) {
-                location.reload();
-            }
+        function reset() {
+            if (confirm("¿Seguro que quieres reiniciar?")) location.reload();
         }
 
         function render() {
-            document.getElementById('total-count').innerText = state.total;
-            document.getElementById('progress-fill').style.width = `${state.total}%`;
-        }
+            document.getElementById('t-count').innerText = state.total;
+            document.getElementById('p-fill').style.width = `${state.total}%`;
 
-        function toggleModal(show) {
-            const modal = document.getElementById('results-modal');
-            modal.style.display = show ? 'flex' : 'none';
-            if (show) calculateResults();
-        }
-
-        function calculateResults() {
-            const wbcTotal = parseFloat(document.getElementById('wbc-total').value) || 0;
-            const tbody = document.getElementById('results-body');
-            tbody.innerHTML = '';
-
-            for (const [key, val] of Object.entries(state.counts)) {
-                if (val === 0 && state.total < 100) continue; // No mostrar ceros si no terminó, opcional
-
-                const absolute = ((val / 100) * wbcTotal).toFixed(0);
-                const row = `
-                    <tr>
-                        <td>${cellLabels[key]}</td>
-                        <td style="text-align: right" class="rel-val">${val}%</td>
-                        <td style="text-align: right" class="abs-val">${Number(absolute).toLocaleString()}</td>
-                    </tr>
-                `;
-                tbody.innerHTML += row;
+            for (let key in state.counts) {
+                const b = document.getElementById(`badge-${key}`);
+                const count = state.counts[key];
+                b.innerText = count;
+                if (count > 0) b.classList.add('visible');
+                else b.classList.remove('visible');
             }
         }
 
-        async function copyResults() {
-            const wbcTotal = document.getElementById('wbc-total').value;
-            let text = `REPORTE HEMATOLÓGICO\n`;
-            text += `Total Leucocitos: ${wbcTotal} /mm³\n`;
-            text += `--------------------------------\n`;
-            text += `CÉLULA | REL (%) | ABS (/mm³)\n`;
-
-            for (const [key, val] of Object.entries(state.counts)) {
-                const abs = ((val / 100) * wbcTotal).toFixed(0);
-                text += `${cellLabels[key].padEnd(15)}: ${val}% | ${abs}\n`;
+        function showResults() {
+            const wbc = parseFloat(document.getElementById('wbc-total').value) || 0;
+            const body = document.getElementById('r-body');
+            body.innerHTML = '';
+            for (let k in state.counts) {
+                const percent = state.counts[k];
+                const abs = ((percent / 100) * wbc).toFixed(0);
+                body.innerHTML += `<tr><td>${labs[k]}</td><td style="text-align:right; font-weight:bold; color:var(--success);">${percent}%</td><td style="text-align:right; font-weight:800;">${Number(abs).toLocaleString()}</td></tr>`;
             }
+            document.getElementById('modal').style.display = 'flex';
+        }
 
-            try {
-                await navigator.clipboard.writeText(text);
-                const btn = document.querySelector('.copy-btn');
-                btn.innerText = "¡REPORTE COPIADO!";
-                btn.style.background = "var(--success)";
-                setTimeout(() => {
-                    btn.innerText = "COPIAR REPORTE";
-                    btn.style.background = "var(--accent)";
-                }, 2000);
-            } catch (err) {
-                alert("Error al copiar");
+        function closeM() { document.getElementById('modal').style.display = 'none'; }
+
+        async function copy() {
+            const wbc = document.getElementById('wbc-total').value;
+            let t = `REPORTE HEMATOLÓGICO\nTotal Blancos: ${wbc} /mm³\n--------------------\n`;
+            for (let k in state.counts) {
+                const abs = ((state.counts[k] / 100) * wbc).toFixed(0);
+                t += `${labs[k].padEnd(15)}: ${state.counts[k]}% (${abs}/mm³)\n`;
             }
+            await navigator.clipboard.writeText(t);
+            const b = document.querySelector('.copy-btn');
+            b.innerText = "¡COPIADO!";
+            b.style.background = "var(--success)";
+            setTimeout(() => { b.innerText = "COPIAR REPORTE"; b.style.background = "var(--accent)"; }, 2000);
         }
     </script>
 </body>
