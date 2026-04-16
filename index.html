@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>LeucoCount Pro | Edición Modular</title>
+    <title>LeucoCount Pro | Laboratorio Senior</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
@@ -18,7 +18,7 @@
             --success: #10b981;
             --danger: #ef4444;
             --border: #334155;
-            --label-bg: rgba(15, 23, 42, 0.95);
+            --label-bg: #1e293b;
         }
 
         * {
@@ -29,6 +29,7 @@
             -webkit-user-select: none;
             user-select: none;
             font-family: 'Inter', sans-serif;
+            touch-action: manipulation;
         }
 
         body {
@@ -38,12 +39,11 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            touch-action: manipulation;
         }
 
         /* Header & Dashboard */
         .header {
-            padding: 1rem;
+            padding: 1rem 1.25rem;
             background: var(--bg);
             border-bottom: 1px solid var(--border);
             z-index: 100;
@@ -53,22 +53,18 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 0.75rem;
         }
 
-        .counter-box {
-            flex-grow: 1;
-        }
-
-        .counter-label {
-            font-size: 0.7rem;
-            font-weight: 600;
+        .counter-box h2 {
+            font-size: 0.65rem;
             color: var(--text-muted);
             text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 2px;
         }
 
         .counter-value {
-            font-size: 1.75rem;
+            font-size: 2rem;
             font-weight: 800;
         }
 
@@ -80,135 +76,139 @@
             text-align: right;
         }
 
-        .wbc-group label {
-            display: block;
+        .wbc-label {
             font-size: 0.6rem;
             color: var(--text-muted);
+            display: block;
             margin-bottom: 4px;
         }
 
         .wbc-input {
-            width: 120px;
+            width: 110px;
             background: var(--card);
             border: 1px solid var(--border);
             color: var(--text);
-            padding: 10px;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 700;
+            padding: 8px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 800;
             text-align: center;
         }
 
-        .progress-container {
-            height: 4px;
-            background: var(--card);
-            border-radius: 99px;
-            overflow: hidden;
-        }
-
-        #p-fill {
-            height: 100%;
-            width: 0%;
-            background: var(--accent);
-            transition: width 0.3s ease;
-        }
-
-        /* Modular Grid */
+        /* Modular Spaced Grid */
         .grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            padding: 12px;
+            gap: 20px;
+            padding: 20px;
             flex-grow: 1;
             overflow-y: auto;
         }
 
-        .cell-btn {
-            position: relative;
+        /* Button Modular System */
+        .btn-cell {
             background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            height: 120px;
-            overflow: hidden;
+            border: 2px solid var(--border);
+            border-radius: 24px;
+            cursor: pointer;
             display: flex;
             flex-direction: column;
-            cursor: pointer;
-            transition: transform 0.1s;
+            width: 100%;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            padding: 0;
+            overflow: visible;
+            /* Para que el badge pueda sobresalir */
         }
 
-        .cell-btn:active {
+        .btn-cell:active {
             transform: scale(0.96);
             border-color: var(--accent);
         }
 
+        /* Morphological Window (1:1 Aspect Ratio) */
+        .img-box {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            border-radius: 22px 22px 0 0;
+            overflow: hidden;
+            background: #000;
+        }
+
         .cell-img {
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0.7;
+            object-position: center;
+            opacity: 0.85;
+            transition: opacity 0.2s;
         }
 
-        .cell-label {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
+        .btn-cell:active .cell-img {
+            opacity: 1;
+        }
+
+        /* Non-overlapping Label - SOLID STRIP AT BASE */
+        .cell-tag {
             background: var(--label-bg);
-            color: white;
-            padding: 8px 4px;
-            text-align: center;
+            color: var(--text);
+            width: 100%;
+            padding: 10px 4px;
+            border-radius: 0 0 22px 22px;
             font-size: 0.75rem;
-            font-weight: 700;
+            font-weight: 800;
             text-transform: uppercase;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+            letter-spacing: 0.05em;
+            border-top: 1px solid var(--border);
         }
 
+        /* Floating Badge - HIGH VISIBILITY */
         .badge {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            min-width: 24px;
-            height: 24px;
+            top: -10px;
+            right: -10px;
+            min-width: 32px;
+            height: 32px;
             background: var(--accent);
-            border-radius: 99px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0 6px;
-            font-size: 0.7rem;
-            font-weight: 800;
             color: white;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-            z-index: 20;
+            font-size: 0.9rem;
+            font-weight: 900;
+            border: 3px solid var(--bg);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            z-index: 100;
             opacity: 0;
-            transform: scale(0.5);
-            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: scale(0);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .badge.visible {
+        .badge.active {
             opacity: 1;
             transform: scale(1);
         }
 
         /* Controls */
-        .controls {
-            padding: 1rem;
+        .footer {
+            padding: 1rem 1.25rem;
             display: flex;
             gap: 12px;
-            background: var(--bg);
             border-top: 1px solid var(--border);
+            background: var(--bg);
         }
 
-        .ctrl-btn {
+        .btn-ctrl {
             flex: 1;
-            padding: 15px;
-            border-radius: 12px;
+            padding: 1.1rem;
+            border-radius: 16px;
             border: none;
-            font-weight: 700;
-            font-size: 0.85rem;
+            font-weight: 800;
+            font-size: 0.9rem;
+            text-transform: uppercase;
             cursor: pointer;
         }
 
@@ -220,10 +220,10 @@
         .reset {
             background: transparent;
             color: var(--text-muted);
-            border: 1px solid var(--border);
+            border: 2px solid var(--border);
         }
 
-        /* Results Modal */
+        /* Laboratory Results Modal */
         #modal {
             display: none;
             position: fixed;
@@ -231,21 +231,22 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(15, 23, 42, 0.98);
+            backdrop-filter: blur(20px);
             z-index: 1000;
             align-items: center;
             justify-content: center;
-            padding: 1rem;
+            padding: 1.25rem;
         }
 
-        .modal-card {
+        .report-card {
             background: var(--card);
             width: 100%;
-            max-width: 400px;
-            border-radius: 20px;
-            padding: 1.5rem;
+            max-width: 420px;
+            border-radius: 30px;
+            padding: 2rem 1.5rem;
             border: 1px solid var(--border);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
         }
 
         .results-table {
@@ -258,24 +259,43 @@
             text-align: left;
             font-size: 0.65rem;
             color: var(--text-muted);
-            padding-bottom: 10px;
+            padding-bottom: 12px;
+            text-transform: uppercase;
         }
 
         .results-table td {
-            padding: 10px 0;
+            padding: 12px 0;
             border-bottom: 1px solid var(--border);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
+            font-weight: 600;
         }
 
-        .copy-btn {
+        .rel-val {
+            color: var(--success);
+            font-weight: 800;
+            text-align: right;
+        }
+
+        .abs-val {
+            font-weight: 800;
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .btn-action {
             width: 100%;
-            padding: 1rem;
-            border-radius: 12px;
-            background: var(--accent);
-            color: white;
+            padding: 1.1rem;
+            border-radius: 18px;
             border: none;
             font-weight: 800;
+            font-size: 1rem;
             cursor: pointer;
+            margin-bottom: 12px;
+        }
+
+        .copy {
+            background: var(--accent);
+            color: white;
         }
     </style>
 </head>
@@ -285,65 +305,79 @@
     <header class="header">
         <div class="dashboard">
             <div class="counter-box">
-                <span class="counter-label">Relativa</span>
-                <div class="counter-value"><span id="t-count">0</span>/100</div>
+                <h2>Conteo Relativo</h2>
+                <div class="counter-value"><span id="live-total">0</span>/100</div>
             </div>
             <div class="wbc-group">
-                <label>Total Leucocitos</label>
-                <input type="tel" id="wbc-total" class="wbc-input" value="0">
+                <label class="wbc-label">Blancos Totales/mm³</label>
+                <input type="tel" id="wbc-input" class="wbc-input" value="0">
             </div>
-        </div>
-        <div class="progress-container">
-            <div id="p-fill"></div>
         </div>
     </header>
 
     <main class="grid">
-        <button class="cell-btn" onclick="tap('basofilo')">
-            <img src="images/basofilo.jpg" class="cell-img">
-            <div class="badge" id="badge-basofilo">0</div>
-            <div class="cell-label">Basofilo</div>
+        <!-- LESS FREQUENT (Top) -->
+        <button class="btn-cell" onclick="tap('basofilo')">
+            <div class="img-box">
+                <img src="images/basofilo.jpg" class="cell-img">
+                <div class="badge" id="b-basofilo">0</div>
+            </div>
+            <div class="cell-tag">Basófilo</div>
         </button>
-        <button class="cell-btn" onclick="tap('eosinofilo')">
-            <img src="images/eosinofilo.jpg" class="cell-img">
-            <div class="badge" id="badge-eosinofilo">0</div>
-            <div class="cell-label">Eosinofilo</div>
+        <button class="btn-cell" onclick="tap('eosinofilo')">
+            <div class="img-box">
+                <img src="images/eosinofilo.jpg" class="cell-img">
+                <div class="badge" id="b-eosinofilo">0</div>
+            </div>
+            <div class="cell-tag">Eosinófilo</div>
         </button>
-        <button class="cell-btn" onclick="tap('monocito')">
-            <img src="images/monocito.jpg" class="cell-img">
-            <div class="badge" id="badge-monocito">0</div>
-            <div class="cell-label">Monocito</div>
+        <button class="btn-cell" onclick="tap('monocito')">
+            <div class="img-box">
+                <img src="images/monocito.jpg" class="cell-img">
+                <div class="badge" id="b-monocito">0</div>
+            </div>
+            <div class="cell-tag">Monocito</div>
         </button>
-        <button class="cell-btn" onclick="tap('linfocito_reactivo')">
-            <img src="images/linfocito_reactivo.jpg" class="cell-img">
-            <div class="badge" id="badge-linfocito_reactivo">0</div>
-            <div class="cell-label">Linfo. Reactivo</div>
+        <button class="btn-cell" onclick="tap('linfocito_reactivo')">
+            <div class="img-box">
+                <img src="images/linfocito_reactivo.jpg" class="cell-img">
+                <div class="badge" id="b-linfocito_reactivo">0</div>
+            </div>
+            <div class="cell-tag">Linfo. Reactivo</div>
         </button>
-        <button class="cell-btn" onclick="tap('linfocito')">
-            <img src="images/linfocito.jpg" class="cell-img">
-            <div class="badge" id="badge-linfocito">0</div>
-            <div class="cell-label">Linfocito</div>
+
+        <!-- POWER ZONE (Bottom - Most Common) -->
+        <button class="btn-cell" onclick="tap('linfocito')">
+            <div class="img-box">
+                <img src="images/linfocito.jpg" class="cell-img">
+                <div class="badge" id="b-linfocito">0</div>
+            </div>
+            <div class="cell-tag">Linfocito</div>
         </button>
-        <button class="cell-btn" onclick="tap('neutrofilo_segmentado')">
-            <img src="images/neutrofilo_segmentado.jpg" class="cell-img">
-            <div class="badge" id="badge-neutrofilo_segmentado">0</div>
-            <div class="cell-label">N. Segmentado</div>
+        <button class="btn-cell" onclick="tap('neutrofilo_segmentado')">
+            <div class="img-box">
+                <img src="images/neutrofilo_segmentado.jpg" class="cell-img">
+                <div class="badge" id="b-neutrofilo_segmentado">0</div>
+            </div>
+            <div class="cell-tag">Segmentado</div>
         </button>
-        <button class="cell-btn" style="grid-column: span 2;" onclick="tap('neutrofilo_banda')">
-            <img src="images/neutrofilo_banda.jpg" class="cell-img">
-            <div class="badge" id="badge-neutrofilo_banda">0</div>
-            <div class="cell-label">Neutrofilo en Banda</div>
+        <button class="btn-cell" style="grid-column: span 2;" onclick="tap('neutrofilo_banda')">
+            <div class="img-box" style="aspect-ratio: 2/1;">
+                <img src="images/neutrofilo_banda.jpg" class="cell-img">
+                <div class="badge" id="b-neutrofilo_banda">0</div>
+            </div>
+            <div class="cell-tag">Neutrófilo en Banda</div>
         </button>
     </main>
 
-    <footer class="controls">
-        <button class="ctrl-btn undo" onclick="undo()">⟲ DESHACER</button>
-        <button class="ctrl-btn reset" onclick="reset()">REINICIAR</button>
+    <footer class="footer">
+        <button class="btn-ctrl undo" onclick="undo()">⟲ Deshacer</button>
+        <button class="btn-ctrl reset" onclick="reset()">Reset</button>
     </footer>
 
     <div id="modal">
-        <div class="modal-card">
-            <h3 style="text-align:center; color: var(--accent);">Resultados Finales</h3>
+        <div class="report-card">
+            <h3 style="text-align:center; color: var(--accent); font-weight: 800;">Reporte Leucocitario</h3>
             <table class="results-table">
                 <thead>
                     <tr>
@@ -352,87 +386,88 @@
                         <th style="text-align:right">mm³</th>
                     </tr>
                 </thead>
-                <tbody id="r-body"></tbody>
+                <tbody id="r-table"></tbody>
             </table>
-            <button class="copy-btn" onclick="copy()">COPIAR REPORTE</button>
-            <div style="text-align:center; margin-top:15px; font-size:0.8rem; color:var(--text-muted); text-decoration:underline;"
-                onclick="closeM()">Volver</div>
+            <button class="btn-action copy" onclick="copy()">Copiar Reporte</button>
+            <div style="text-align:center; color:var(--text-muted); font-size:0.8rem; text-decoration: underline;"
+                onclick="toggleM(false)">Volver a Editar</div>
         </div>
     </div>
 
     <script>
-        const state = {
+        const st = {
             counts: { basofilo: 0, eosinofilo: 0, monocito: 0, linfocito_reactivo: 0, linfocito: 0, neutrofilo_segmentado: 0, neutrofilo_banda: 0 },
-            history: [],
+            hist: [],
             total: 0
         };
 
-        const labs = {
-            basofilo: "Basofilo", eosinofilo: "Eosinofilo", monocito: "Monocito",
+        const names = {
+            basofilo: "Basófilo", eosinofilo: "Eosinófilo", monocito: "Monocito",
             linfocito_reactivo: "Linfo Reactivo", linfocito: "Linfocito",
-            neutrofilo_segmentado: "N. Segmentado", neutrofilo_banda: "N. Banda"
+            neutrofilo_segmentado: "Segmentado", neutrofilo_banda: "N. en Banda"
         };
 
-        function tap(type) {
-            if (state.total >= 100) return;
-            state.counts[type]++;
-            state.total++;
-            state.history.push(type);
-            if (navigator.vibrate) navigator.vibrate(state.total === 100 ? 250 : 40);
-            render();
-            if (state.total === 100) setTimeout(showResults, 400);
+        function tap(k) {
+            if (st.total >= 100) return;
+            st.counts[k]++;
+            st.total++;
+            st.hist.push(k);
+            if (navigator.vibrate) navigator.vibrate(st.total === 100 ? 500 : 50);
+            update();
+            if (st.total === 100) setTimeout(() => toggleM(true), 400);
         }
 
         function undo() {
-            if (state.history.length === 0) return;
-            state.counts[state.history.pop()]--;
-            state.total--;
-            render();
+            if (st.hist.length === 0) return;
+            const last = st.hist.pop();
+            st.counts[last]--;
+            st.total--;
+            update();
         }
 
         function reset() {
-            if (confirm("¿Seguro que quieres reiniciar?")) location.reload();
+            if (confirm("¿Reiniciar conteo?")) location.reload();
         }
 
-        function render() {
-            document.getElementById('t-count').innerText = state.total;
-            document.getElementById('p-fill').style.width = `${state.total}%`;
-
-            for (let key in state.counts) {
-                const b = document.getElementById(`badge-${key}`);
-                const count = state.counts[key];
-                b.innerText = count;
-                if (count > 0) b.classList.add('visible');
-                else b.classList.remove('visible');
+        function update() {
+            document.getElementById('live-total').innerText = st.total;
+            for (let k in st.counts) {
+                const b = document.getElementById(`b-${k}`);
+                b.innerText = st.counts[k];
+                if (st.counts[k] > 0) b.classList.add('active');
+                else b.classList.remove('active');
             }
         }
 
-        function showResults() {
-            const wbc = parseFloat(document.getElementById('wbc-total').value) || 0;
-            const body = document.getElementById('r-body');
+        function toggleM(show) {
+            const m = document.getElementById('modal');
+            m.style.display = show ? 'flex' : 'none';
+            if (show) fill();
+        }
+
+        function fill() {
+            const wbc = parseFloat(document.getElementById('wbc-input').value) || 0;
+            const body = document.getElementById('r-table');
             body.innerHTML = '';
-            for (let k in state.counts) {
-                const percent = state.counts[k];
-                const abs = ((percent / 100) * wbc).toFixed(0);
-                body.innerHTML += `<tr><td>${labs[k]}</td><td style="text-align:right; font-weight:bold; color:var(--success);">${percent}%</td><td style="text-align:right; font-weight:800;">${Number(abs).toLocaleString()}</td></tr>`;
+            for (let k in st.counts) {
+                const perc = st.counts[k];
+                const abs = ((perc / 100) * wbc).toFixed(0);
+                body.innerHTML += `<tr><td>${names[k]}</td><td class="rel-val">${perc}%</td><td class="abs-val">${Number(abs).toLocaleString()}</td></tr>`;
             }
-            document.getElementById('modal').style.display = 'flex';
         }
-
-        function closeM() { document.getElementById('modal').style.display = 'none'; }
 
         async function copy() {
-            const wbc = document.getElementById('wbc-total').value;
-            let t = `REPORTE HEMATOLÓGICO\nTotal Blancos: ${wbc} /mm³\n--------------------\n`;
-            for (let k in state.counts) {
-                const abs = ((state.counts[k] / 100) * wbc).toFixed(0);
-                t += `${labs[k].padEnd(15)}: ${state.counts[k]}% (${abs}/mm³)\n`;
+            const wbc = document.getElementById('wbc-input').value;
+            let t = `REPORTE LEUCOCITARIO\nTotal: ${wbc} /mm³\n--------------------\n`;
+            for (let k in st.counts) {
+                const abs = ((st.counts[k] / 100) * wbc).toFixed(0);
+                t += `${names[k].padEnd(15)}: ${st.counts[k]}% (${abs} mm³)\n`;
             }
             await navigator.clipboard.writeText(t);
-            const b = document.querySelector('.copy-btn');
-            b.innerText = "¡COPIADO!";
-            b.style.background = "var(--success)";
-            setTimeout(() => { b.innerText = "COPIAR REPORTE"; b.style.background = "var(--accent)"; }, 2000);
+            const btn = document.querySelector('.copy');
+            btn.innerText = "¡Copiado!";
+            btn.style.background = "var(--success)";
+            setTimeout(() => { btn.innerText = "Copiar Reporte"; btn.style.background = "var(--accent)"; }, 2000);
         }
     </script>
 </body>
