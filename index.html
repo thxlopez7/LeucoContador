@@ -41,12 +41,32 @@
             overflow: hidden;
         }
 
-        /* Header & Dashboard */
+        /* Header & Patient ID */
         .header {
-            padding: 1rem 1.25rem;
+            padding: 0.75rem 1.25rem;
             background: var(--bg);
             border-bottom: 1px solid var(--border);
             z-index: 100;
+        }
+
+        .patient-box {
+            margin-bottom: 8px;
+        }
+
+        .patient-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid var(--border);
+            color: var(--text);
+            font-size: 0.9rem;
+            padding: 4px 0;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .patient-input:focus {
+            border-color: var(--accent);
         }
 
         .dashboard {
@@ -56,15 +76,15 @@
         }
 
         .counter-box h2 {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            margin-bottom: 2px;
+            margin-bottom: 1px;
         }
 
         .counter-value {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 800;
         }
 
@@ -77,39 +97,146 @@
         }
 
         .wbc-label {
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             color: var(--text-muted);
             display: block;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
 
         .wbc-input {
-            width: 110px;
+            width: 90px;
             background: var(--card);
             border: 1px solid var(--border);
             color: var(--text);
-            padding: 8px;
-            border-radius: 12px;
-            font-size: 1.1rem;
+            padding: 6px;
+            border-radius: 10px;
+            font-size: 1rem;
             font-weight: 800;
             text-align: center;
+        }
+
+        /* Nav Tabs */
+        .nav-tabs {
+            display: flex;
+            background: var(--card);
+            padding: 4px;
+            border-radius: 14px;
+            margin: 0 20px;
+            margin-top: 10px;
+            gap: 4px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            background: var(--bg);
+            color: var(--accent);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Views */
+        .view-content {
+            flex-grow: 1;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .view-content.active {
+            display: block;
         }
 
         /* Modular Spaced Grid */
         .grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            padding: 20px;
-            flex-grow: 1;
-            overflow-y: auto;
+            gap: 16px;
+            padding: 16px;
+        }
+
+        /* Historial View */
+        .history-list {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .history-card {
+            background: var(--card);
+            border-radius: 20px;
+            padding: 16px;
+            border: 1px solid var(--border);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .card-name {
+            font-weight: 800;
+            font-size: 1rem;
+            color: var(--text);
+        }
+
+        .card-date {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        .card-stats {
+            font-size: 0.8rem;
+            color: #a5b4fc;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-card {
+            flex: 1;
+            padding: 10px;
+            border-radius: 12px;
+            border: none;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        .copy-btn {
+            background: var(--accent);
+            color: white;
+        }
+
+        .del-btn {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+            border: 1px solid rgba(239, 68, 68, 0.2);
         }
 
         /* Button Modular System */
         .btn-cell {
             background: var(--card);
             border: 2px solid var(--border);
-            border-radius: 24px;
+            border-radius: 20px;
             cursor: pointer;
             display: flex;
             flex-direction: column;
@@ -118,10 +245,8 @@
             position: relative;
             padding: 0;
             overflow: visible;
-            /* CRITICAL: Allow badge to sit on top without clipping */
         }
 
-        /* Selection/Active State - NO CLIPPING */
         .btn-cell:active {
             transform: scale(0.96);
             border-color: var(--accent);
@@ -129,12 +254,12 @@
             z-index: 50;
         }
 
-        /* Morphological Window (1:1 Aspect Ratio) */
+        /* Morphological Window */
         .img-box {
             position: relative;
             width: 100%;
             aspect-ratio: 1 / 1;
-            border-radius: 22px 22px 0 0;
+            border-radius: 18px 18px 0 0;
             overflow: hidden;
             background: #000;
             z-index: 1;
@@ -153,45 +278,37 @@
             opacity: 1;
         }
 
-        /* Non-overlapping Label */
         .cell-tag {
             background: var(--label-bg);
             color: var(--text);
             width: 100%;
-            padding: 10px 4px;
-            border-radius: 0 0 22px 22px;
-            font-size: 0.75rem;
+            padding: 8px 4px;
+            border-radius: 0 0 18px 18px;
+            font-size: 0.7rem;
             font-weight: 800;
             text-transform: uppercase;
             text-align: center;
-            letter-spacing: 0.05em;
             border-top: 1px solid var(--border);
             z-index: 2;
         }
 
-        /* High-Priority Individual Badge */
         .badge {
             position: absolute;
             top: 8px;
-            /* Cushion from top */
             right: 8px;
-            /* Cushion from right */
-            min-width: 36px;
-            height: 36px;
+            min-width: 34px;
+            height: 34px;
             background: var(--accent);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1rem;
-            /* Reinforced size */
+            font-size: 0.9rem;
             font-weight: 800;
-            /* Bold weight */
             border: 3px solid var(--bg);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
             z-index: 100;
-            /* Maximum priority */
             opacity: 0;
             transform: scale(0);
             transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -205,7 +322,7 @@
 
         /* Controls */
         .footer {
-            padding: 1rem 1.25rem;
+            padding: 0.75rem 1.25rem;
             display: flex;
             gap: 12px;
             border-top: 1px solid var(--border);
@@ -214,11 +331,11 @@
 
         .btn-ctrl {
             flex: 1;
-            padding: 1.1rem;
-            border-radius: 16px;
+            padding: 1rem;
+            border-radius: 14px;
             border: none;
             font-weight: 800;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
             cursor: pointer;
         }
@@ -247,15 +364,15 @@
             z-index: 1000;
             align-items: center;
             justify-content: center;
-            padding: 1.25rem;
+            padding: 1rem;
         }
 
         .report-card {
             background: var(--card);
             width: 100%;
-            max-width: 420px;
-            border-radius: 30px;
-            padding: 2rem 1.5rem;
+            max-width: 400px;
+            border-radius: 28px;
+            padding: 1.5rem;
             border: 1px solid var(--border);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
         }
@@ -263,21 +380,21 @@
         .results-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 1.5rem 0;
+            margin: 1rem 0;
         }
 
         .results-table th {
             text-align: left;
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             color: var(--text-muted);
-            padding-bottom: 12px;
+            padding-bottom: 8px;
             text-transform: uppercase;
         }
 
         .results-table td {
-            padding: 12px 0;
+            padding: 8px 0;
             border-bottom: 1px solid var(--border);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
         }
 
@@ -295,13 +412,24 @@
 
         .btn-action {
             width: 100%;
-            padding: 1.1rem;
-            border-radius: 18px;
+            padding: 1rem;
+            border-radius: 16px;
             border: none;
             font-weight: 800;
-            font-size: 1rem;
+            font-size: 0.9rem;
             cursor: pointer;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-action:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .save-btn {
+            background: var(--success);
+            color: white;
         }
 
         .copy {
@@ -314,9 +442,12 @@
 <body>
 
     <header class="header">
+        <div class="patient-box">
+            <input type="text" id="patient-name" class="patient-input" placeholder="Nombre del Paciente / ID Muestra">
+        </div>
         <div class="dashboard">
             <div class="counter-box">
-                <h2>Total de Células</h2>
+                <h2>Conteo Relativo</h2>
                 <div class="counter-value"><span id="live-total">0</span>/100</div>
             </div>
             <div class="wbc-group">
@@ -326,66 +457,75 @@
         </div>
     </header>
 
-    <main class="grid">
-        <button class="btn-cell" onclick="tap('basofilo')">
-            <div class="badge" id="b-basofilo">0</div>
-            <div class="img-box">
-                <img src="images/basofilo.jpg" class="cell-img">
-            </div>
-            <div class="cell-tag">Basófilo</div>
-        </button>
-        <button class="btn-cell" onclick="tap('eosinofilo')">
-            <div class="badge" id="b-eosinofilo">0</div>
-            <div class="img-box">
-                <img src="images/eosinofilo.jpg" class="cell-img">
-            </div>
-            <div class="cell-tag">Eosinófilo</div>
-        </button>
-        <button class="btn-cell" onclick="tap('monocito')">
-            <div class="badge" id="b-monocito">0</div>
-            <div class="img-box">
-                <img src="images/monocito.jpg" class="cell-img">
-            </div>
-            <div class="cell-tag">Monocito</div>
-        </button>
-        <button class="btn-cell" onclick="tap('linfocito_reactivo')">
-            <div class="badge" id="b-linfocito_reactivo">0</div>
-            <div class="img-box">
-                <img src="images/linfocito_reactivo.jpg" class="cell-img">
-            </div>
-            <div class="cell-tag">Linfo. Reactivo</div>
-        </button>
-        <button class="btn-cell" onclick="tap('linfocito')">
-            <div class="badge" id="b-linfocito">0</div>
-            <div class="img-box">
-                <img src="images/linfocito.jpg" class="cell-img">
-            </div>
-            <div class="cell-tag">Linfocito</div>
-        </button>
-        <button class="btn-cell" onclick="tap('neutrofilo_segmentado')">
-            <div class="badge" id="b-neutrofilo_segmentado">0</div>
-            <div class="img-box">
-                <img src="images/neutrofilo_segmentado.jpg" class="cell-img">
-            </div>
-            <div class="cell-tag">Segmentado</div>
-        </button>
-        <button class="btn-cell" style="grid-column: span 2;" onclick="tap('neutrofilo_banda')">
-            <div class="badge" id="b-neutrofilo_banda">0</div>
-            <div class="img-box" style="aspect-ratio: 2/0.8;">
-                <img src="images/neutrofilo_banda.jpg" class="cell-img">
-            </div>
-            <div class="cell-tag">Neutrófilo en Banda</div>
-        </button>
+    <nav class="nav-tabs">
+        <button class="tab-btn active" onclick="switchTab('contador')">Contador</button>
+        <button class="tab-btn" onclick="switchTab('biblioteca')">Biblioteca</button>
+        <button class="tab-btn" onclick="switchTab('historial')">Historial</button>
+    </nav>
+
+    <main id="view-contador" class="view-content active">
+        <div class="grid">
+            <button class="btn-cell" onclick="tap('basofilo')">
+                <div class="badge" id="b-basofilo">0</div>
+                <div class="img-box"><img src="images/basofilo.jpg" class="cell-img"></div>
+                <div class="cell-tag">Basófilo</div>
+            </button>
+            <button class="btn-cell" onclick="tap('eosinofilo')">
+                <div class="badge" id="b-eosinofilo">0</div>
+                <div class="img-box"><img src="images/eosinofilo.jpg" class="cell-img"></div>
+                <div class="cell-tag">Eosinófilo</div>
+            </button>
+            <button class="btn-cell" onclick="tap('monocito')">
+                <div class="badge" id="b-monocito">0</div>
+                <div class="img-box"><img src="images/monocito.jpg" class="cell-img"></div>
+                <div class="cell-tag">Monocito</div>
+            </button>
+            <button class="btn-cell" onclick="tap('linfocito_reactivo')">
+                <div class="badge" id="b-linfocito_reactivo">0</div>
+                <div class="img-box"><img src="images/linfocito_reactivo.jpg" class="cell-img"></div>
+                <div class="cell-tag">Linfo. Reactivo</div>
+            </button>
+            <button class="btn-cell" onclick="tap('linfocito')">
+                <div class="badge" id="b-linfocito">0</div>
+                <div class="img-box"><img src="images/linfocito.jpg" class="cell-img"></div>
+                <div class="cell-tag">Linfocito</div>
+            </button>
+            <button class="btn-cell" onclick="tap('neutrofilo_segmentado')">
+                <div class="badge" id="b-neutrofilo_segmentado">0</div>
+                <div class="img-box"><img src="images/neutrofilo_segmentado.jpg" class="cell-img"></div>
+                <div class="cell-tag">Segmentado</div>
+            </button>
+            <button class="btn-cell" style="grid-column: span 2;" onclick="tap('neutrofilo_banda')">
+                <div class="badge" id="b-neutrofilo_banda">0</div>
+                <div class="img-box" style="aspect-ratio: 2/0.8;"><img src="images/neutrofilo_banda.jpg"
+                        class="cell-img"></div>
+                <div class="cell-tag">Neutrófilo en Banda</div>
+            </button>
+        </div>
+    </main>
+
+    <main id="view-biblioteca" class="view-content">
+        <div style="padding: 40px; text-align: center; color: var(--text-muted);">
+            <p>Biblioteca Morfológica en desarrollo...</p>
+        </div>
+    </main>
+
+    <main id="view-historial" class="view-content">
+        <div id="history-container" class="history-list">
+            <!-- Cards generated by JS -->
+        </div>
     </main>
 
     <footer class="footer">
         <button class="btn-ctrl undo" onclick="undo()">⟲ Deshacer</button>
-        <button class="btn-ctrl reset" onclick="reset()">Reset</button>
+        <button class="btn-ctrl reset" onclick="reset()">Limpiar</button>
     </footer>
 
     <div id="modal">
         <div class="report-card">
-            <h3 style="text-align:center; color: var(--accent); font-weight: 800;">Reporte Leucocitario</h3>
+            <h3 id="modal-title" style="text-align:center; color: var(--accent); font-weight: 800; margin-bottom: 5px;">
+                Reporte Leucocitario</h3>
+            <p id="modal-patient" style="text-align:center; font-size: 0.8rem; color: var(--text-muted);"></p>
             <table class="results-table">
                 <thead>
                     <tr>
@@ -396,8 +536,10 @@
                 </thead>
                 <tbody id="r-table"></tbody>
             </table>
-            <button class="btn-action copy" onclick="copy()">Copiar Reporte</button>
-            <div style="text-align:center; color:var(--text-muted); font-size:0.8rem; text-decoration: underline;"
+            <button class="btn-action save-btn" id="btn-save-final" onclick="saveToHistory()">Guardar en
+                Historial</button>
+            <button class="btn-action copy" onclick="copyReport()">Copiar Reporte</button>
+            <div style="text-align:center; color:var(--text-muted); font-size:0.8rem; text-decoration: underline; margin-top: 10px;"
                 onclick="toggleM(false)">Volver a Editar</div>
         </div>
     </div>
@@ -415,12 +557,26 @@
             neutrofilo_segmentado: "Segmentado", neutrofilo_banda: "N. en Banda"
         };
 
+        // Tab Navigation
+        function switchTab(viewId) {
+            document.querySelectorAll('.view-content').forEach(v => v.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(`view-${viewId}`).classList.add('active');
+            const btns = document.querySelectorAll('.tab-btn');
+            if (viewId === 'contador') btns[0].classList.add('active');
+            if (viewId === 'biblioteca') btns[1].classList.add('active');
+            if (viewId === 'historial') {
+                btns[2].classList.add('active');
+                renderHistory();
+            }
+        }
+
         function tap(k) {
             if (st.total >= 100) return;
             st.counts[k]++;
             st.total++;
             st.hist.push(k);
-            if (navigator.vibrate) navigator.vibrate(st.total === 100 ? 500 : 50);
+            if (navigator.vibrate) navigator.vibrate(st.total === 100 ? 500 : 40);
             update();
             if (st.total === 100) setTimeout(() => toggleM(true), 400);
         }
@@ -434,7 +590,12 @@
         }
 
         function reset() {
-            if (confirm("¿Reiniciar conteo?")) location.reload();
+            if (confirm("¿Reiniciar conteo actual?")) {
+                st.total = 0;
+                st.hist = [];
+                for (let k in st.counts) st.counts[k] = 0;
+                update();
+            }
         }
 
         function update() {
@@ -450,7 +611,10 @@
         function toggleM(show) {
             const m = document.getElementById('modal');
             m.style.display = show ? 'flex' : 'none';
-            if (show) fill();
+            if (show) {
+                document.getElementById('modal-patient').innerText = document.getElementById('patient-name').value || "Paciente S/N";
+                fill();
+            }
         }
 
         function fill() {
@@ -464,19 +628,109 @@
             }
         }
 
-        async function copy() {
+        // Persistent Logic
+        function saveToHistory() {
+            const patient = document.getElementById('patient-name').value || "Paciente S/N";
             const wbc = document.getElementById('wbc-input').value;
-            let t = `REPORTE LEUCOCITARIO\nTotal: ${wbc} /mm³\n--------------------\n`;
+            const now = new Date();
+            const dateStr = now.toLocaleDateString() + ' ' + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            const record = {
+                id: Date.now(),
+                patient,
+                date: dateStr,
+                wbc,
+                counts: { ...st.counts }
+            };
+
+            const history = JSON.parse(localStorage.getItem('leuco_historial') || '[]');
+            history.unshift(record); // Newest first
+            localStorage.setItem('leuco_historial', JSON.stringify(history));
+
+            const btn = document.getElementById('btn-save-final');
+            btn.innerText = "¡Guardado!";
+            btn.style.background = "var(--accent)";
+            setTimeout(() => {
+                toggleM(false);
+                btn.innerText = "Guardar en Historial";
+                btn.style.background = "var(--success)";
+                switchTab('historial');
+            }, 1000);
+        }
+
+        function renderHistory() {
+            const container = document.getElementById('history-container');
+            const history = JSON.parse(localStorage.getItem('leuco_historial') || '[]');
+
+            if (history.length === 0) {
+                container.innerHTML = `<div style="text-align:center; padding: 40px; color: var(--text-muted); font-size: 0.85rem;">No hay registros guardados.</div>`;
+                return;
+            }
+
+            container.innerHTML = '';
+            history.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'history-card';
+
+                let statsText = '';
+                for (let k in item.counts) {
+                    if (item.counts[k] > 0) statsText += `${names[k]}: ${item.counts[k]}% | `;
+                }
+                statsText = statsText.slice(0, -3);
+
+                card.innerHTML = `
+                    <div class="card-header">
+                        <div>
+                            <div class="card-name">${item.patient}</div>
+                            <div class="card-date">${item.date} • WBC: ${item.wbc}/mm³</div>
+                        </div>
+                    </div>
+                    <div class="card-stats">${statsText}</div>
+                    <div class="card-actions">
+                        <button class="btn-card copy-btn" onclick="copyFromHistory(${item.id})">Copiar</button>
+                        <button class="btn-card del-btn" onclick="deleteHistory(${item.id})">Borrar</button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function deleteHistory(id) {
+            if (!confirm("¿Eliminar este registro?")) return;
+            let history = JSON.parse(localStorage.getItem('leuco_historial') || '[]');
+            history = history.filter(item => item.id !== id);
+            localStorage.setItem('leuco_historial', JSON.stringify(history));
+            renderHistory();
+        }
+
+        async function copyReport() {
+            const patient = document.getElementById('patient-name').value || "S/N";
+            const wbc = document.getElementById('wbc-input').value;
+            let t = `REPORTE LEUCOCITARIO\nPaciente: ${patient}\nTotal WBC: ${wbc} /mm³\n--------------------\n`;
             for (let k in st.counts) {
                 const abs = ((st.counts[k] / 100) * wbc).toFixed(0);
                 t += `${names[k].padEnd(15)}: ${st.counts[k]}% (${abs} mm³)\n`;
             }
             await navigator.clipboard.writeText(t);
-            const btn = document.querySelector('.copy');
-            btn.innerText = "¡Copiado!";
-            btn.style.background = "var(--success)";
-            setTimeout(() => { btn.innerText = "Copiar Reporte"; btn.style.background = "var(--accent)"; }, 2000);
+            alert("Reporte copiado al portapapeles");
         }
+
+        async function copyFromHistory(id) {
+            const history = JSON.parse(localStorage.getItem('leuco_historial') || '[]');
+            const item = history.find(i => i.id === id);
+            if (!item) return;
+
+            let t = `REPORTE LEUCOCITARIO\nPaciente: ${item.patient}\nFecha: ${item.date}\nTotal WBC: ${item.wbc} /mm³\n--------------------\n`;
+            for (let k in item.counts) {
+                const abs = ((item.counts[k] / 100) * item.wbc).toFixed(0);
+                t += `${names[k].padEnd(15)}: ${item.counts[k]}% (${abs} mm³)\n`;
+            }
+            await navigator.clipboard.writeText(t);
+            alert("¡Reporte copiado!");
+        }
+
+        // Initialize
+        update();
     </script>
 </body>
 
